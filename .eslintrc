@@ -1,10 +1,8 @@
 {
-  "extends": "airbnb",
+  "extends": ["airbnb"],
   "parser": "babel-eslint",
   "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    }
+    "ecmaVersion": 2018
   },
   "env": {
     "browser": true,
@@ -13,11 +11,12 @@
   },
   "plugins": [ "babel" ],
   "rules": {
-    "max-len": [2, { "code": 120, "ignoreUrls": true }]
+    "max-len": [2, { "code": 120, "ignoreUrls": true }],
+    "import/prefer-default-export": 0
   },
   "settings": {
     "react": {
-      "pragma": "h"
+      "pragma": "React"
     },
     "import/resolver": {
       "webpack": {

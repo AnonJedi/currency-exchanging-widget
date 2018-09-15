@@ -24,6 +24,7 @@ module.exports = {
     extensions: ['.js', '.jsx', '.webpack-loader.js', '.web-loader.js', '.loader.js'],
     alias: {
       components: path.resolve(__dirname, '../src/components/'),
+      constants: path.resolve(__dirname, '../src/constants.js'),
     },
   },
   output: {
@@ -37,7 +38,7 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: 'development',
+        NODE_ENV: JSON.stringify('development'),
       },
     }),
     new CleanWebpackPlugin(['dist/*'], {
@@ -65,13 +66,13 @@ module.exports = {
 
       // styles
       {
-        test: /\.styl$/,
+        test: /\.scss$/,
         exclude: /node_modules/,
         use: [
           'style-loader',
           'css-loader?modules=true&localIdentName=[name]__[local]___[hash:base64:5]',
           'postcss-loader?sourceMap=true',
-          'scss-loader',
+          'sass-loader',
         ],
       },
       {

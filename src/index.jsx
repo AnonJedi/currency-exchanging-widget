@@ -1,5 +1,6 @@
-import { h, render } from 'preact';
+import React from 'react';
+import { render } from 'react-dom';
 
-import Widget from 'components/Widget';
+import Page from 'components/Page';
 
-render(<Widget />, document.getElementById('root'));
+render(<Page />, document.getElementById('root'));

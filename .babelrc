@@ -1,6 +1,7 @@
 {
   "plugins": [
-    ["transform-react-jsx", { "pragma": "h" }]
+    "@babel/plugin-proposal-class-properties",
+    ["@babel/plugin-proposal-decorators", { "legacy": true }]
   ],
   "presets": [
     "@babel/preset-react",
@@ -8,8 +9,7 @@
       "@babel/preset-env",
       {
         "targets": {
-          "browsers": "last 2 versions",
-          "node": "current"
+          "browsers": "last 2 versions"
         }
       }
     ]
