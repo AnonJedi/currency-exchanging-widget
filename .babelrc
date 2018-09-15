@@ -1,27 +1,17 @@
 {
   "plugins": [
-    ["transform-react-jsx", { "pragma":"h" }],
-    "transform-class-properties",
-    "syntax-dynamic-import"
+    ["transform-react-jsx", { "pragma": "h" }]
   ],
   "presets": [
-    "react",
-    "stage-0",
+    "@babel/preset-react",
     [
       "@babel/preset-env",
       {
         "targets": {
-          "node": "6.10",
-          "esmodules": true
+          "browsers": "last 2 versions",
+          "node": "current"
         }
       }
     ]
-  ],
-  "env": {
-    "development": {
-      "presets": [
-        "react-hmre"
-      ]
-    }
-  }
+  ]
 }

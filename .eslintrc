@@ -14,5 +14,15 @@
   "plugins": [ "babel" ],
   "rules": {
     "max-len": [2, { "code": 120, "ignoreUrls": true }]
+  },
+  "settings": {
+    "react": {
+      "pragma": "h"
+    },
+    "import/resolver": {
+      "webpack": {
+        "config": "./configs/webpack-dev.js"
+      }
+    }
   }
 }
