@@ -1,0 +1,27 @@
+{
+  "plugins": [
+    ["transform-react-jsx", { "pragma":"h" }],
+    "transform-class-properties",
+    "syntax-dynamic-import"
+  ],
+  "presets": [
+    "react",
+    "stage-0",
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "6.10",
+          "esmodules": true
+        }
+      }
+    ]
+  ],
+  "env": {
+    "development": {
+      "presets": [
+        "react-hmre"
+      ]
+    }
+  }
+}
