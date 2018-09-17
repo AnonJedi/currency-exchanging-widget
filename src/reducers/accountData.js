@@ -3,7 +3,7 @@ import { CURRENCY_SYMBOLS } from 'constants';
 
 const initialState = {
   accountVal: '0',
-  defaultCarrency: CURRENCY_SYMBOLS.GBP,
+  defaultCurrency: CURRENCY_SYMBOLS.GBP,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -16,7 +16,7 @@ export default (state = initialState, { type, payload }) => {
     case ACCOUNT_DATA_CURRENCY_CHANGE:
       return {
         ...state,
-        defaultCarrency: payload,
+        defaultCurrency: payload,
       };
     default:
       return state;

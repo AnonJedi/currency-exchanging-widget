@@ -4,4 +4,10 @@ export const CURRENCY_SYMBOLS = {
   USD: 'USD',
 };
 
+export const CURRENCY_SIGNS = {
+  GBP: '£',
+  EUR: '€',
+  USD: '$',
+};
+
 export const GET_EXCHANGE_PERIOD = 10000; // in ms

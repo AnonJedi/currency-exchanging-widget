@@ -11,13 +11,15 @@ import styles from './page.scss';
 const currencySymbolKeys = Object.keys(CURRENCY_SYMBOLS);
 
 function Page(props) {
-  const { accountData: { accountVal, defaultCarrency } } = props;
+  const { accountData: { accountVal, defaultCurrency } } = props;
   return (
     <div className={styles.container}>
       <ValueForm />
       <Widget
-        value={accountVal}
-        defaultCurrency={defaultCarrency}
+        key={`${defaultCurrency}_${accountVal}`}
+        accountValues={{
+          [defaultCurrency]: accountVal,
+        }}
       />
     </div>
   );
@@ -26,7 +28,7 @@ function Page(props) {
 Page.propTypes = {
   accountData: propTypes.shape({
     accountVal: propTypes.string.isRequired,
-    defaultCarrency: propTypes.oneOf(currencySymbolKeys).isRequired,
+    defaultCurrency: propTypes.oneOf(currencySymbolKeys).isRequired,
   }).isRequired,
 };
 

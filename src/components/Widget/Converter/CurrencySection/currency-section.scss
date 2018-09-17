@@ -1,0 +1,17 @@
+.container {
+  height: 100px;
+}
+
+.slider {
+  font-size: 14px;
+  max-width: 200px;
+  margin: auto;
+  color: #fff;
+
+  .item {
+    .spread_line {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

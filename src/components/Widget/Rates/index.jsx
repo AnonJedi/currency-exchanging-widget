@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import AddSymbols from 'components/Widget/Rates/AddSymbols';
-import { getRate, getAllSymbols } from 'actions/currencies';
+import { getRate } from 'actions/currencies';
 import { GET_EXCHANGE_PERIOD } from 'constants';
 import styles from './rates.scss';
 
 class Rates extends React.Component {
   static propTypes = {
     getRate: propTypes.func.isRequired,
-    getAllSymbols: propTypes.func.isRequired,
     symbols: propTypes.shape({
       data: propTypes.shape({}).isRequired,
       loading: propTypes.bool.isRequired,
@@ -38,7 +37,6 @@ class Rates extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getAllSymbols();
     this.downloadRate();
   }
 
@@ -107,7 +105,7 @@ class Rates extends React.Component {
 
   render() {
     return (
-      <div>
+      <main>
         <AddSymbols
           onSymbolsSubmit={this.addPair}
           symbols={this.props.symbols.data}
@@ -116,7 +114,7 @@ class Rates extends React.Component {
         <ul className={styles.list}>
           {this.state.currencies.map(this.renderList)}
         </ul>
-      </div>
+      </main>
     );
   }
 }
@@ -128,7 +126,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getRate: bindActionCreators(getRate, dispatch),
-  getAllSymbols: bindActionCreators(getAllSymbols, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Rates);

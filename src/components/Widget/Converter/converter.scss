@@ -1,0 +1,21 @@
+.from_section {
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 7.5px 0 7.5px;
+    border-color: #2d77ee transparent transparent transparent;
+    transform: translate(-50%, 0);
+  }
+
+}
+
+.to_section {
+  background-color: rgba(0, 0, 0, .3);
+}

@@ -12,7 +12,7 @@ class ValueForm extends React.Component {
   static propTypes = {
     accountData: propTypes.shape({
       accountVal: propTypes.string.isRequired,
-      defaultCarrency: propTypes.oneOf(currencySymbolKeys).isRequired,
+      defaultCurrency: propTypes.oneOf(currencySymbolKeys).isRequired,
     }).isRequired,
     changeAccountValue: propTypes.func.isRequired,
     changeCurrency: propTypes.func.isRequired,
@@ -28,8 +28,8 @@ class ValueForm extends React.Component {
 
   onCurrencyChange = (e) => {
     const newCurrency = e.target.value;
-    const { accountData: { defaultCarrency } } = this.props;
-    if (newCurrency === defaultCarrency || !CURRENCY_SYMBOLS[newCurrency]) { return; }
+    const { accountData: { defaultCurrency } } = this.props;
+    if (newCurrency === defaultCurrency || !CURRENCY_SYMBOLS[newCurrency]) { return; }
 
     this.props.changeCurrency(newCurrency);
   }
@@ -41,7 +41,7 @@ class ValueForm extends React.Component {
   )
 
   render() {
-    const { accountData: { accountVal, defaultCarrency } } = this.props;
+    const { accountData: { accountVal, defaultCurrency } } = this.props;
     return (
       <form>
         <label htmlFor="valet-val">
@@ -50,7 +50,7 @@ class ValueForm extends React.Component {
         </label>
 
         <span>Account currency</span>
-        <select value={defaultCarrency} onChange={this.onCurrencyChange}>
+        <select value={defaultCurrency} onChange={this.onCurrencyChange}>
           {currencySymbolKeys.map(this.renderCurrency)}
         </select>
       </form>

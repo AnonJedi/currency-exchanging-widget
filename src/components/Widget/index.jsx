@@ -1,26 +1,40 @@
 import React from 'react';
 import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import propTypes from 'prop-types';
 
 import Rates from 'components/Widget/Rates';
+import Converter from 'components/Widget/Converter';
+import { getAllSymbols } from 'actions/currencies';
 import styles from './widget.scss';
 
-export default class Widget extends React.Component {
+class Widget extends React.Component {
   static tabContent = {
-    rates: <Rates />,
+    rates: () => <Rates />,
+    converter: props => <Converter accountValues={props.accountValues} />,
   }
 
   static tabs = {
-    rates: 'rates',
     converter: 'converter',
+    rates: 'rates',
+  }
+
+  static propTypes = {
+    getAllSymbols: propTypes.func.isRequired,
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      activeTab: Widget.tabs.rates,
+      activeTab: Widget.tabs.converter,
     };
 
     this.tabs = Object.keys(Widget.tabs);
+  }
+
+  componentDidMount() {
+    this.props.getAllSymbols();
   }
 
   onTabClick = (e) => {
@@ -45,6 +59,12 @@ export default class Widget extends React.Component {
   )
 
   render() {
+    let tabContent = null;
+
+    if (Widget.tabContent[this.state.activeTab]) {
+      tabContent = Widget.tabContent[this.state.activeTab](this.props);
+    }
+
     return (
       <div className={styles.container}>
         <h3 className={styles.header}>Exchange</h3>
@@ -53,8 +73,14 @@ export default class Widget extends React.Component {
           {this.tabs.map(this.renderTabs)}
         </div>
 
-        {Widget.tabContent[this.state.activeTab]}
+        {tabContent}
       </div>
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  getAllSymbols: bindActionCreators(getAllSymbols, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(Widget);
