@@ -5,18 +5,18 @@ import { bindActionCreators } from 'redux';
 import propTypes from 'prop-types';
 
 import Rates from 'components/Widget/Rates';
-import Converter from 'components/Widget/Converter';
+import AccountsManager from 'components/Widget/AccountsManager';
 import { getAllSymbols } from 'actions/currencies';
 import styles from './widget.scss';
 
 class Widget extends React.Component {
   static tabContent = {
     rates: () => <Rates />,
-    converter: props => <Converter accountValues={props.accountValues} />,
+    accounts: props => <AccountsManager accountValues={props.accountValues} />,
   }
 
   static tabs = {
-    converter: 'converter',
+    accounts: 'accounts',
     rates: 'rates',
   }
 
@@ -27,7 +27,7 @@ class Widget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTab: Widget.tabs.converter,
+      activeTab: Widget.tabs.accounts,
     };
 
     this.tabs = Object.keys(Widget.tabs);

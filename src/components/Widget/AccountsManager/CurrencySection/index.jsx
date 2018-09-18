@@ -18,7 +18,26 @@ export default function CurrencySection(props) {
           <div key={item} className={styles.item}>
             <div className={styles.spread_line}>
               <p>{CURRENCY_SYMBOLS[item]}</p>
-              <p>1</p>
+              {props.onInputChange
+                ? (
+                  <span>
+                    <form onSubmit={props.onValueSubmit}>
+                      {!!props.value && '-'}
+                      &nbsp;
+                      <input
+                        className={styles.input}
+                        value={props.value || ''}
+                        onChange={props.onInputChange}
+                      />
+                    </form>
+                  </span>
+                )
+                : (
+                  <p>
+                    {!!props.value && `+ ${props.value}`}
+                  </p>
+                )
+              }
             </div>
 
             <div className={styles.spread_line}>
@@ -54,8 +73,13 @@ CurrencySection.propTypes = {
   onCurrencyChange: propTypes.func.isRequired,
   rates: propTypes.shape({}).isRequired,
   fromSymbol: propTypes.string,
+  onInputChange: propTypes.func,
+  value: propTypes.number.isRequired,
+  onValueSubmit: propTypes.func,
 };
 
 CurrencySection.defaultProps = {
   fromSymbol: null,
+  onInputChange: null,
+  onValueSubmit: null,
 };

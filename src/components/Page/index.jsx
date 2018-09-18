@@ -10,6 +10,7 @@ import styles from './page.scss';
 
 const currencySymbolKeys = Object.keys(CURRENCY_SYMBOLS);
 
+// Mock component for positioning and put initial data for the Widget
 function Page(props) {
   const { accountData: { accountVal, defaultCurrency } } = props;
   return (

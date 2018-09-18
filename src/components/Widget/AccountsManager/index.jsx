@@ -3,14 +3,14 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import CurrencySection from 'components/Widget/Converter/CurrencySection';
+import CurrencySection from 'components/Widget/AccountsManager/CurrencySection';
 import { getRate } from 'actions/currencies';
 import { CURRENCY_SYMBOLS, GET_EXCHANGE_PERIOD } from 'constants';
-import styles from './converter.scss';
+import styles from './accounts-manager.scss';
 
 const symbolList = Object.keys(CURRENCY_SYMBOLS);
 
-class Converter extends React.Component {
+class AccountsManager extends React.Component {
   static propTypes = {
     accountValues: propTypes.shape({}).isRequired,
     rates: propTypes.shape({
@@ -26,6 +26,7 @@ class Converter extends React.Component {
       fromSymbol: symbolList[0],
       toSymbol: symbolList[0],
       accountValues: props.accountValues,
+      transactions: {},
     };
   }
 
@@ -46,7 +47,58 @@ class Converter extends React.Component {
     this.setState({ toSymbol: symbolList[index] }, this.downloadRate);
   }
 
+  onInputChange = (e) => {
+    const { value } = e.target;
+    this.setState(state => ({
+      transactions: {
+        ...state.transactions,
+        [state.fromSymbol]: Number.parseFloat(value),
+      },
+    }));
+  }
+
+  onValueSubmit = (e) => {
+    e.nativeEvent.preventDefault();
+    e.preventDefault();
+
+    const {
+      accountValues,
+      transactions,
+      fromSymbol,
+      toSymbol,
+    } = this.state;
+
+    if (fromSymbol === toSymbol) {
+      this.setState(state => ({
+        transactions: {
+          ...state.transactions,
+          [fromSymbol]: 0,
+        },
+      }));
+      return;
+    }
+
+    const fromVal = accountValues[fromSymbol] || 0;
+    const fromTransaction = transactions[fromSymbol] || 0;
+    const newFromVal = Math.max(0, fromVal - fromTransaction);
+    const newToValue = fromVal > fromTransaction ? fromTransaction : fromVal;
+
+    this.setState(state => ({
+      accountValues: {
+        ...state.accountValues,
+        [fromSymbol]: newFromVal,
+        [toSymbol]: newToValue * this.props.rates.data[`${fromSymbol}_${toSymbol}`],
+      },
+      transactions: {
+        ...state.transactions,
+        [fromSymbol]: 0,
+      },
+    }));
+  }
+
   render() {
+    let toValue = this.state.transactions[this.state.fromSymbol] || 0;
+    toValue *= (this.props.rates.data[`${this.state.fromSymbol}_${this.state.toSymbol}`] || 0);
     return (
       <main>
         <div className={styles.from_section}>
@@ -55,6 +107,9 @@ class Converter extends React.Component {
             availableSymbols={symbolList}
             onCurrencyChange={this.onChangeFromCurrency}
             rates={this.props.rates.data}
+            onInputChange={this.onInputChange}
+            value={this.state.transactions[this.state.fromSymbol] || 0}
+            onValueSubmit={this.onValueSubmit}
           />
         </div>
 
@@ -65,6 +120,7 @@ class Converter extends React.Component {
             onCurrencyChange={this.onChangeToCurrency}
             rates={this.props.rates.data}
             fromSymbol={this.state.fromSymbol}
+            value={toValue}
           />
         </div>
       </main>
@@ -80,4 +136,4 @@ const mapDispatchToProps = dispatch => ({
   getRate: bindActionCreators(getRate, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Converter);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountsManager);
