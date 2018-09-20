@@ -4,6 +4,7 @@ import propTypes from 'prop-types';
 
 import { changeAccountValue, changeCurrency } from 'actions/accountData';
 import { CURRENCY_SYMBOLS } from 'constants';
+import styles from './value-form.scss';
 
 const VALUE_REG_EXP = /^-?[0-9]+(\.)?([0-9]{1,2})?$/gm;
 const currencySymbolKeys = Object.keys(CURRENCY_SYMBOLS);
@@ -43,16 +44,20 @@ class ValueForm extends React.Component {
   render() {
     const { accountData: { accountVal, defaultCurrency } } = this.props;
     return (
-      <form>
-        <label htmlFor="valet-val">
-          Account value
-          <input id="valet-val" value={accountVal} onChange={this.onValueChange} />
-        </label>
+      <form className={styles.container}>
+        <fieldset>
+          <label htmlFor="valet-val">
+            Account value
+            <input id="valet-val" value={accountVal} onChange={this.onValueChange} />
+          </label>
 
-        <span>Account currency</span>
-        <select value={defaultCurrency} onChange={this.onCurrencyChange}>
-          {currencySymbolKeys.map(this.renderCurrency)}
-        </select>
+          <div>
+            <span>Account currency</span>
+            <select value={defaultCurrency} onChange={this.onCurrencyChange}>
+              {currencySymbolKeys.map(this.renderCurrency)}
+            </select>
+          </div>
+        </fieldset>
       </form>
     );
   }

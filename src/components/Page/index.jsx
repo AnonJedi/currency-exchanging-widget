@@ -16,6 +16,7 @@ function Page(props) {
   return (
     <div className={styles.container}>
       <ValueForm />
+
       <Widget
         key={`${defaultCurrency}_${accountVal}`}
         accountValues={{

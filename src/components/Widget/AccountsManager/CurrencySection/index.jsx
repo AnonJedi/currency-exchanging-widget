@@ -20,17 +20,15 @@ export default function CurrencySection(props) {
               <p>{CURRENCY_SYMBOLS[item]}</p>
               {props.onInputChange
                 ? (
-                  <span>
-                    <form onSubmit={props.onValueSubmit}>
-                      {!!props.value && '-'}
-                      &nbsp;
-                      <input
-                        className={styles.input}
-                        value={props.value || ''}
-                        onChange={props.onInputChange}
-                      />
-                    </form>
-                  </span>
+                  <form onSubmit={props.onValueSubmit}>
+                    {!!props.value && '-'}
+                    &nbsp;
+                    <input
+                      className={styles.input}
+                      value={props.value || ''}
+                      onChange={props.onInputChange}
+                    />
+                  </form>
                 )
                 : (
                   <p>
