@@ -23,11 +23,11 @@ module.exports = {
     ],
     extensions: ['.js', '.jsx', '.webpack-loader.js', '.web-loader.js', '.loader.js'],
     alias: {
-      components: path.resolve(__dirname, '../src/components/'),
-      constants: path.resolve(__dirname, '../src/constants/'),
-      reducers: path.resolve(__dirname, '../src/reducers/'),
-      actions: path.resolve(__dirname, '../src/actions/'),
-      apiUrls: path.resolve(__dirname, '../src/apiUrls/'),
+      components: path.resolve(SRC_DIR, 'components/'),
+      constants: path.resolve(SRC_DIR, 'constants/'),
+      reducers: path.resolve(SRC_DIR, 'reducers/'),
+      actions: path.resolve(SRC_DIR, 'actions/'),
+      apiUrls: path.resolve(SRC_DIR, 'apiUrls/'),
     },
   },
   output: {

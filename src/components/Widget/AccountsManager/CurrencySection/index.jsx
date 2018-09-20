@@ -70,9 +70,9 @@ CurrencySection.propTypes = {
   ).isRequired,
   onCurrencyChange: propTypes.func.isRequired,
   rates: propTypes.shape({}).isRequired,
+  value: propTypes.number.isRequired,
   fromSymbol: propTypes.string,
   onInputChange: propTypes.func,
-  value: propTypes.number.isRequired,
   onValueSubmit: propTypes.func,
 };
 
