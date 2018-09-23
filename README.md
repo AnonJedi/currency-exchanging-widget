@@ -9,7 +9,7 @@ This is a simple app on React and Redux which simulate your bank account with 3 
 npm v6.4.1  
 node v9.4.0
 
-That requirements you can install via [nvm](https://github.com/creationix/nvm) guide
+You can install that requirements via [nvm](https://github.com/creationix/nvm) guide
 
 ## Prepearing
 
@@ -24,6 +24,8 @@ And then for start up the app's dev server run
 ```bash
 npm start
 ```
+
+check your [localhost](http://0.0.0.0:3000/) to see the widget
 
 For run the tests use
 
