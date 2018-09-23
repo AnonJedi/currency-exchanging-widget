@@ -59,10 +59,11 @@ class Rates extends React.Component {
   }
 
   downloadRate = () => {
+    clearTimeout(this.timeoutId);
     if (!this.state.currencies.length) {
-      clearTimeout(this.timeoutId);
       return;
     }
+
     this.timeoutId = setTimeout(this.downloadRate, GET_EXCHANGE_PERIOD);
     const symPairs = this.state.currencies.map(pair => pair.symPair);
     this.props.getRate(symPairs);
@@ -104,6 +105,7 @@ class Rates extends React.Component {
   )
 
   render() {
+    console.log(this.props.rates);
     return (
       <main>
         <AddSymbols
@@ -114,6 +116,12 @@ class Rates extends React.Component {
         <ul className={styles.list}>
           {this.state.currencies.map(this.renderList)}
         </ul>
+
+        {this.props.rates.error && (
+          <p className={styles.error}>
+            {this.props.rates.error}
+          </p>
+        )}
       </main>
     );
   }
