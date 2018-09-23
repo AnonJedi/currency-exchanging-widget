@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import CurrencySection from 'components/Widget/AccountsManager/CurrencySection';
 import { getRate } from 'actions/currencies';
 import { CURRENCY_SYMBOLS, GET_EXCHANGE_PERIOD } from 'constants';
+import { parseCurrencyValue } from 'utils';
 import styles from './accounts-manager.scss';
 
 const symbolList = Object.keys(CURRENCY_SYMBOLS);
@@ -49,10 +50,12 @@ class AccountsManager extends React.Component {
 
   onInputChange = (e) => {
     const { value } = e.target;
+
+    const parsedValue = parseCurrencyValue(value);
     this.setState(state => ({
       transactions: {
         ...state.transactions,
-        [state.fromSymbol]: Number.parseFloat(value),
+        [state.fromSymbol]: parsedValue,
       },
     }));
   }
@@ -72,7 +75,7 @@ class AccountsManager extends React.Component {
       this.setState(state => ({
         transactions: {
           ...state.transactions,
-          [fromSymbol]: 0,
+          [fromSymbol]: '0',
         },
       }));
       return;
@@ -97,8 +100,8 @@ class AccountsManager extends React.Component {
   }
 
   render() {
-    let toValue = this.state.transactions[this.state.fromSymbol] || 0;
-    toValue *= (this.props.rates.data[`${this.state.fromSymbol}_${this.state.toSymbol}`] || 0);
+    const fromValue = Number.parseFloat(this.state.transactions[this.state.fromSymbol] || 0);
+    const toValue = fromValue * (this.props.rates.data[`${this.state.fromSymbol}_${this.state.toSymbol}`] || 0);
     return (
       <main>
         <div className={styles.from_section}>
@@ -108,7 +111,7 @@ class AccountsManager extends React.Component {
             onCurrencyChange={this.onChangeFromCurrency}
             rates={this.props.rates.data}
             onInputChange={this.onInputChange}
-            value={this.state.transactions[this.state.fromSymbol] || 0}
+            value={this.state.transactions[this.state.fromSymbol] || ''}
             onValueSubmit={this.onValueSubmit}
           />
         </div>
@@ -120,7 +123,7 @@ class AccountsManager extends React.Component {
             onCurrencyChange={this.onChangeToCurrency}
             rates={this.props.rates.data}
             fromSymbol={this.state.fromSymbol}
-            value={toValue}
+            value={toValue ? toValue.toString() : ''}
           />
         </div>
       </main>

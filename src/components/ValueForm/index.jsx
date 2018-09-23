@@ -4,9 +4,10 @@ import propTypes from 'prop-types';
 
 import { changeAccountValue, changeCurrency } from 'actions/accountData';
 import { CURRENCY_SYMBOLS } from 'constants';
+import { parseCurrencyValue } from 'utils';
+
 import styles from './value-form.scss';
 
-const VALUE_REG_EXP = /^-?[0-9]+(\.)?([0-9]{1,2})?$/gm;
 const currencySymbolKeys = Object.keys(CURRENCY_SYMBOLS);
 
 class ValueForm extends React.Component {
@@ -22,9 +23,10 @@ class ValueForm extends React.Component {
   onValueChange = (e) => {
     const newValue = e.target.value;
     const { accountData: { accountVal } } = this.props;
-    if (newValue === accountVal || !newValue.match(VALUE_REG_EXP)) { return; }
+    const parsedValue = parseCurrencyValue(newValue);
+    if (parsedValue === accountVal) { return; }
 
-    this.props.changeAccountValue(newValue);
+    this.props.changeAccountValue(parsedValue || '0');
   }
 
   onCurrencyChange = (e) => {

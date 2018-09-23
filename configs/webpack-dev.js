@@ -28,6 +28,7 @@ module.exports = {
       reducers: path.resolve(SRC_DIR, 'reducers/'),
       actions: path.resolve(SRC_DIR, 'actions/'),
       apiUrls: path.resolve(SRC_DIR, 'apiUrls/'),
+      utils: path.resolve(SRC_DIR, 'utils/'),
     },
   },
   output: {
