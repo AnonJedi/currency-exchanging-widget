@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import CurrencySection from 'components/Widget/AccountsManager/CurrencySection';
 import { getRate } from 'actions/currencies';
 import { CURRENCY_SYMBOLS, GET_EXCHANGE_PERIOD } from 'constants';
-import { parseCurrencyValue } from 'utils';
+import { parseCurrencyValue, preventDefault } from 'utils';
 import styles from './accounts-manager.scss';
 
 const symbolList = Object.keys(CURRENCY_SYMBOLS);
@@ -16,6 +16,7 @@ class AccountsManager extends React.Component {
     accountValues: propTypes.shape({}).isRequired,
     rates: propTypes.shape({
       data: propTypes.shape({}).isRequired,
+      error: propTypes.string,
     }).isRequired,
     getRate: propTypes.func.isRequired,
   }
@@ -70,8 +71,7 @@ class AccountsManager extends React.Component {
   }
 
   onValueSubmit = (e) => {
-    e.nativeEvent.preventDefault();
-    e.preventDefault();
+    preventDefault(e);
 
     const {
       accountValues,
@@ -80,18 +80,22 @@ class AccountsManager extends React.Component {
       toSymbol,
     } = this.state;
 
+    if (!this.props.rates.data[`${fromSymbol}_${toSymbol}`]) {
+      return;
+    }
+
     if (fromSymbol === toSymbol) {
       this.setState(state => ({
         transactions: {
           ...state.transactions,
-          [fromSymbol]: '0',
+          [fromSymbol]: undefined,
         },
       }));
       return;
     }
 
-    const fromVal = accountValues[fromSymbol] || 0;
-    const fromTransaction = transactions[fromSymbol] || 0;
+    const fromVal = Number.parseFloat(accountValues[fromSymbol] || 0);
+    const fromTransaction = Number.parseFloat(transactions[fromSymbol] || 0);
     const newFromVal = Math.max(0, fromVal - fromTransaction);
     const newToValue = fromVal > fromTransaction ? fromTransaction : fromVal;
 
@@ -109,8 +113,14 @@ class AccountsManager extends React.Component {
   }
 
   render() {
-    const fromValue = Number.parseFloat(this.state.transactions[this.state.fromSymbol] || 0);
-    const toValue = fromValue * (this.props.rates.data[`${this.state.fromSymbol}_${this.state.toSymbol}`] || 0);
+    const {
+      accountValues,
+      transactions,
+      fromSymbol,
+      toSymbol,
+    } = this.state;
+    const fromValue = Number.parseFloat(Math.min(transactions[fromSymbol] || 0, accountValues[fromSymbol] || 0));
+    const toValue = fromValue * (this.props.rates.data[`${fromSymbol}_${toSymbol}`] || 0);
     return (
       <main>
         <div className={styles.from_section}>
@@ -135,6 +145,12 @@ class AccountsManager extends React.Component {
             value={toValue ? toValue.toString() : ''}
           />
         </div>
+
+        {this.props.rates.error && (
+          <p className={styles.error}>
+            {this.props.rates.error}
+          </p>
+        )}
       </main>
     );
   }

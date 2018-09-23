@@ -2,7 +2,7 @@
 
 This is a simple app on React and Redux which simulate your bank account with 3 currencies (GBP, EUR and USD). You can controll your bills and transfer some sum between that currencies. Also there is rates monitor where you can compare the rates for any of the available currencies.
 
-**Note:** this widget is using [free api](https://www.currencyconverterapi.com/) for getting currencies rate (it can be a bit incorrect and has some limit for requests per day and number of symbols per request)
+**Note:** this widget is using [free api](https://free.currencyconverterapi.com/) for getting currencies rate (it can be a bit incorrect and has some limit for requests per day and number of symbols per request)
 
 ## Requirements
 

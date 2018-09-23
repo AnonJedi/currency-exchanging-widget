@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 
 import { changeAccountValue, changeCurrency } from 'actions/accountData';
 import { CURRENCY_SYMBOLS } from 'constants';
-import { parseCurrencyValue } from 'utils';
+import { parseCurrencyValue, preventDefault } from 'utils';
 
 import styles from './value-form.scss';
 
@@ -46,7 +46,7 @@ class ValueForm extends React.Component {
   render() {
     const { accountData: { accountVal, defaultCurrency } } = this.props;
     return (
-      <form className={styles.container}>
+      <form className={styles.container} onSubmit={preventDefault}>
         <h4 className={styles.title}>Mock account data</h4>
         <label htmlFor="account-val" className={styles.input_set}>
           <span className={styles.label}>Account value</span>

@@ -15,3 +15,8 @@ export const parseCurrencyValue = (value = '') => {
 
   return undefined;
 };
+
+export const preventDefault = (e) => {
+  e.preventDefault();
+  e.nativeEvent.preventDefault();
+};
