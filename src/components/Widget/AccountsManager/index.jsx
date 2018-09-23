@@ -50,14 +50,23 @@ class AccountsManager extends React.Component {
 
   onInputChange = (e) => {
     const { value } = e.target;
-
     const parsedValue = parseCurrencyValue(value);
-    this.setState(state => ({
-      transactions: {
-        ...state.transactions,
-        [state.fromSymbol]: parsedValue,
-      },
-    }));
+
+    if (!value) {
+      this.setState(state => ({
+        transactions: {
+          ...state.transactions,
+          [state.fromSymbol]: undefined,
+        },
+      }));
+    } else if (parsedValue) {
+      this.setState(state => ({
+        transactions: {
+          ...state.transactions,
+          [state.fromSymbol]: parsedValue,
+        },
+      }));
+    }
   }
 
   onValueSubmit = (e) => {

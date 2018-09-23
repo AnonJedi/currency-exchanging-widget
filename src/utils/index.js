@@ -1,4 +1,4 @@
-import { CURRENCY_VALUE_REG_EXP } from 'constants';
+import { CURRENCY_VALUE_REG_EXP } from 'constants/index';
 
 export const parseCurrencyValue = (value = '') => {
   if (value === '.') {

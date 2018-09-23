@@ -47,19 +47,18 @@ class ValueForm extends React.Component {
     const { accountData: { accountVal, defaultCurrency } } = this.props;
     return (
       <form className={styles.container}>
-        <fieldset>
-          <label htmlFor="valet-val">
-            Account value
-            <input id="valet-val" value={accountVal} onChange={this.onValueChange} />
-          </label>
+        <h4 className={styles.title}>Mock account data</h4>
+        <label htmlFor="account-val" className={styles.input_set}>
+          <span className={styles.label}>Account value</span>
+          <input id="account-val" className={styles.input} value={accountVal} onChange={this.onValueChange} />
+        </label>
 
-          <div>
-            <span>Account currency</span>
-            <select value={defaultCurrency} onChange={this.onCurrencyChange}>
-              {currencySymbolKeys.map(this.renderCurrency)}
-            </select>
-          </div>
-        </fieldset>
+        <div className={styles.input_set}>
+          <span className={styles.label}>Account currency</span>
+          <select className={styles.input} value={defaultCurrency} onChange={this.onCurrencyChange}>
+            {currencySymbolKeys.map(this.renderCurrency)}
+          </select>
+        </div>
       </form>
     );
   }

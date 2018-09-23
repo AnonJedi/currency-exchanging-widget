@@ -1,7 +1,33 @@
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  align-self: center;
   margin: 30px;
+  background-color: #2d78ee;
+  font-size: 14px;
+  width: 250px;
+}
+
+.input_set {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+
+.input {
+  color: #2d78ee;
+  padding: 2px 4px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  border: 0;
+  text-align: center;
+  width: 100px;
+}
+
+.label {
+  color: #fff;
+}
+
+.title {
+  color: #fff;
+  text-align: center;
 }
