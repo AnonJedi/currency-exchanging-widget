@@ -3,16 +3,6 @@
   display: inline-block;
   font-size: 12px;
 
-  &_label {
-    background: transparent;
-    border: 2px solid #fff;
-    padding: 5px;
-    border-radius: 5px;
-    color: #fff;
-    font-size: 12px;
-    cursor: pointer;
-  }
-
   &_list {
     position: absolute;
     left: 0;

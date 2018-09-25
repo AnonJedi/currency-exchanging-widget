@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import classnames from 'classnames';
 
+import Button from 'shared/controls/Button';
 import styles from './add-symbols.scss';
 
 export default class AddSymbols extends React.PureComponent {
@@ -62,9 +63,9 @@ export default class AddSymbols extends React.PureComponent {
   render() {
     return (
       <div className={styles.dropdown}>
-        <button className={styles.dropdown_label} onClick={this.onDropDownToggle} type="button">
-          ADD NEW CURRENCY
-        </button>
+        <Button onClick={this.onDropDownToggle}>
+          {() => 'ADD NEW CURRENCY'}
+        </Button>
 
         {this.state.isOpened && (
           <ul className={styles.dropdown_list}>

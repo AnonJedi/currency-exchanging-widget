@@ -29,6 +29,7 @@ module.exports = {
       actions: path.resolve(SRC_DIR, 'actions/'),
       apiUrls: path.resolve(SRC_DIR, 'apiUrls/'),
       utils: path.resolve(SRC_DIR, 'utils/'),
+      shared: path.resolve(SRC_DIR, 'components/shared/'),
     },
   },
   output: {

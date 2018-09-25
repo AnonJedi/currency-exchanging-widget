@@ -81,6 +81,7 @@ module.exports = {
     '^actions(.*)$': path.resolve(__dirname, './src/actions$1'),
     '^apiUrls(.*)$': path.resolve(__dirname, './src/apiUrls$1'),
     '^utils(.*)$': path.resolve(__dirname, './src/utils$1'),
+    '^shared(.*)$': path.resolve(__dirname, './src/components/shared$1'),
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
